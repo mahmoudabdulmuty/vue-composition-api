@@ -1,11 +1,10 @@
 <template>
-  <h2>
-    username is {{ firstName }}
-    {{ lastName }}
-  </h2>
-  <h2>
-    {{ heroName }}
-  </h2>
+  <div>
+    <h2>
+      {{ count }}
+    </h2>
+    <button @click="increment">Counter</button>
+  </div>
 </template>
 
 <script>
@@ -13,28 +12,19 @@ import { reactive, toRefs } from 'vue';
 
 export default {
   setup() {
+    // const count = ref(0);
     const data = reactive({
-      firstName: 'Mahmoud',
-      lastName: 'Abdulmuty',
-      heroName: 'Moon Knight',
+      count: 0,
     });
-
-    setTimeout(() => {
-      (data.firstName = 'Mohamed'), (data.lastName = 'Abdullah');
-    }, 2000);
-
-    return toRefs(data);
+    const increment = () => {
+      data.count++;
+    };
+    return {
+      ...toRefs(data),
+      increment,
+    };
   },
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss" scoped></style>
