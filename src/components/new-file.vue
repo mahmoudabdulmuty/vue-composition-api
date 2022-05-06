@@ -2,24 +2,29 @@
   <div>
     <input placeholder="First Name" type="text" v-model="firstName" />
     <input placeholder="Last Name" type="text" v-model="lastName" />
-    <input placeholder="Hero Name" type="text" v-model="heroName" />
+    <h2>
+      {{ fullName }}
+    </h2>
   </div>
 </template>
 
 <script>
-import { reactive, ref, toRefs } from 'vue';
+import { computed, reactive, toRefs } from 'vue';
 
 export default {
   setup() {
-    const heroName = ref('');
-    const fullName = reactive({
+    const formData = reactive({
       firstName: '',
       lastName: '',
     });
 
+    const fullName = computed(() => {
+      return `${formData.firstName} ${formData.lastName}`;
+    });
+
     return {
-      heroName,
-      ...toRefs(fullName),
+      ...toRefs(formData),
+      fullName,
     };
   },
 };
