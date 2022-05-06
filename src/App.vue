@@ -1,33 +1,29 @@
 <template>
   <h2>
-    username is {{ data.firstName }}
-    {{ data.lastName }}
+    username is {{ firstName }}
+    {{ lastName }}
   </h2>
   <h2>
-    {{ greet }}
-    {{ data.heroName }}
+    {{ heroName }}
   </h2>
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
+import { reactive, toRefs } from 'vue';
 
 export default {
   setup() {
-    const firstName = ref('Mahmoud');
-    const greet = `Hello ${firstName.value}`;
-
     const data = reactive({
       firstName: 'Mahmoud',
       lastName: 'Abdulmuty',
       heroName: 'Moon Knight',
     });
 
-    return {
-      firstName,
-      greet,
-      data,
-    };
+    setTimeout(() => {
+      (data.firstName = 'Mohamed'), (data.lastName = 'Abdullah');
+    }, 2000);
+
+    return toRefs(data);
   },
 };
 </script>
