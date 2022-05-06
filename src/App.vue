@@ -3,25 +3,41 @@
     <h2>
       {{ count }}
     </h2>
+    <h2>
+      {{ firstName }}
+    </h2>
+    <h2>
+      {{ lastName }}
+    </h2>
+    <button @click="changeName">change Name</button>
     <button @click="increment">Counter</button>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue';
+import { reactive, ref, toRefs } from 'vue';
 
 export default {
   setup() {
-    // const count = ref(0);
-    const data = reactive({
-      count: 0,
-    });
+    const count = ref(0);
     const increment = () => {
-      data.count++;
+      count.value++;
     };
+
+    const data = reactive({
+      firstName: 'Mahmoud',
+      lastName: 'Abdulmuty',
+    });
+
+    const changeName = () => {
+      (data.firstName = 'Moemen'), (data.lastName = 'Yasser');
+    };
+
     return {
       ...toRefs(data),
+      count,
       increment,
+      changeName,
     };
   },
 };
