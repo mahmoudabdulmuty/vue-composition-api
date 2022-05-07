@@ -2,29 +2,39 @@
   <div>
     <input placeholder="First Name" type="text" v-model="firstName" />
     <input placeholder="Last Name" type="text" v-model="lastName" />
-    <h2>
+    <input placeholder="age" type="number" v-model="options.age" />
+    <!-- <h2>
       {{ fullName }}
-    </h2>
+    </h2> -->
   </div>
 </template>
 
 <script>
-import { computed, reactive, toRefs } from 'vue';
+import { reactive, toRefs, watch } from 'vue';
 
 export default {
   setup() {
-    const formData = reactive({
+    // const firstName = ref('');
+    // const lastName = ref('');
+
+    const data = reactive({
       firstName: '',
       lastName: '',
+      options: {
+        age: '',
+      },
     });
 
-    const fullName = computed(() => {
-      return `${formData.firstName} ${formData.lastName}`;
-    });
+    watch(
+      () => structuredClone(data),
+      (newValue, oldValue) => {
+        console.log(newValue.options.age);
+        console.log(oldValue.options.age);
+      }
+    );
 
     return {
-      ...toRefs(formData),
-      fullName,
+      ...toRefs(data),
     };
   },
 };
